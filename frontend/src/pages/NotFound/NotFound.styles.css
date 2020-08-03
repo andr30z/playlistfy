@@ -1,0 +1,36 @@
+.not-found-container {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+.not-found-container img {
+    height: 100%;
+    width: 50%;
+}
+
+.not-found-container a {
+    font-size: 1.8em;
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+    max-height: 30px;
+}
+
+.not-found-container a:hover{
+    border-bottom: 1px solid #000;
+    color: #000;
+}
+
+@media screen and (max-width:600px) {
+    .not-found-container img {
+        min-height: 100%;
+        min-width: 370px;
+    }
+    .not-found-container a {
+        font-size: 1.5em;
+        max-height: 27px;
+    }
+}

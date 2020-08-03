@@ -1,0 +1,202 @@
+.userInfo {
+    min-height: 100vh;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    /* background-color: #E5E5E5; */
+    background-color: transparent;
+    color: #4F79A4;
+}
+
+.userInfoContent {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    min-height: 550px;
+}
+
+.inverse {
+    flex-direction: row-reverse;
+}
+
+.topTitle {
+    margin-bottom: 10px;
+    align-self: center;
+    font-size: 35px;
+}
+
+.musicguyContainer {
+    flex: 0.8;
+    display: flex;
+    position: relative;
+    min-height: 550px;
+    min-width: 50%;
+}
+
+.musicguyContainer img {
+    position: absolute;
+    bottom: 0;
+}
+
+.weknow {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.weknow .title {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    flex: 0.3;
+}
+
+.svg, .weknow {
+    z-index: 1;
+}
+
+.weknow .title h2 {
+    margin-bottom: 10px;
+    font-size: 30px;
+    font-family: Roboto;
+    font-weight: 100;
+    align-self: center;
+    text-shadow: 3px 1px 4px rgba(150, 150, 150, 1);
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.weknow h1 {
+    font-size: 60px;
+    font-weight: 700;
+    font-family: Roboto;
+}
+
+.weknow .mid-inf {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.artist {
+    flex: 1;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    grid-gap: 10px;
+    border-radius: 50px;
+    margin-bottom: 10px;
+}
+
+.artist img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+
+.shadow {
+    position: relative;
+    border-radius: 50%;
+}
+
+.shadow::after {
+    content: '';
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-box-shadow: inset 0 0 0 100px rgba(79, 121, 164, 0.39);
+    -moz-box-shadow: inset 0 0 0 100px rgba(79, 121, 164, 0.39);
+    box-shadow: inset 0 0 0 100px rgba(79, 121, 164, 0.39);
+}
+
+.artist .imageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.imageContainer h4 {
+    margin-bottom: 4px;
+    font-family: Roboto;
+    font-weight: 400;
+    text-align: center;
+    max-width: 100px;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.icon-art {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 5px;
+}
+
+.weknow .artist {
+    margin-right: 10px;
+    /* -webkit-box-shadow: -6px 7px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -6px 7px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: -6px 7px 5px 0px rgba(0, 0, 0, 0.75); */
+}
+
+/* MEDIA QUERIES */
+
+@media (max-width:768px) {
+    .artist {
+        grid-template-columns: auto auto auto;
+        grid-gap: 10px;
+        margin: 10px;
+    }
+    .left {
+        justify-content: space-between !important;
+        flex: 2;
+        min-height: unset;
+        max-height: unset;
+    }
+    .svg {
+        flex: 1;
+        min-height: unset;
+        max-height: unset;
+    }
+    .svg img {
+        flex: 1/2;
+    }
+    .topTitle {
+        text-align: center;
+    }
+
+    .actions{
+        justify-content: center !important;
+    }
+}
+
+@media (max-width:1080px) {
+    .musicguyContainer {
+        display: none;
+    }
+}
+
+@media screen and (max-device-height: 600px) and (orientation:landscape) {
+  
+   
+    .artist {
+        grid-template-columns: auto auto auto auto;
+        grid-gap: 5px;
+        margin: 5px;
+    }
+    .generateStyle {
+        background-color: #4F79A4 !important;
+        color: #fff !important;
+    }
+}

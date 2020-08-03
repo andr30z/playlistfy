@@ -1,0 +1,322 @@
+.playlist-verification {
+    height: 100%;
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.table-container {
+    height: 70%;
+    min-height: 400px;
+    max-height: 450px;
+    width: 80%;
+    background: #fff;
+    /* margin: 0 20px; */
+    display: flex;
+    overflow: auto;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    position: relative;
+}
+
+.fl-table {
+    font-size: 18px;
+    border-collapse: collapse;
+    flex: 1;
+    background-color: white;
+}
+
+tbody th {
+    max-width: 200px;
+    /* -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; */
+}
+
+.fl-table td, .fl-table th {
+    text-align: center;
+    padding: 8px;
+}
+
+.fl-table td {
+    border-right: 1px solid #cab8b8;
+    font-size: 12px;
+}
+
+.fl-table thead th {
+    color: #4F79A4;
+    background: #fff;
+}
+
+.fl-table thead th:nth-child(odd) {
+    color: #ffffff;
+    background: #4F79A4;
+}
+
+.fl-table tr:nth-child(even) {
+    background: #edf1f5;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    border-radius: 0;
+}
+
+.title-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 10px 0;
+    min-height: 20px;
+}
+
+.title-container .playlist-title-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.playlist-title {
+    color: white;
+    font-family: Ubuntu;
+    text-shadow: 2px 2px 10px rgba(150, 150, 150, 1);
+}
+
+.button-container {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 20px;
+}
+
+.button-size {
+    max-width: 160px;
+    height: 65px;
+    border-radius: 9px;
+    padding: 0 10px;
+    font-family: Ubuntu;
+    font-size: 16px;
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-size:hover {
+    opacity: 1;
+}
+
+.another-one {
+    color: #4F79A4;
+    border: 1px solid black;
+}
+
+.another-one:hover {
+    color: #fff;
+    border-color: #fff;
+    background-color: #000;
+}
+
+.add-to-profile .spotify {
+    margin-left: 5%;
+}
+
+.add-to-profile {
+    background-color: #191414;
+    color: #1DB954;
+    border: 1px #fff solid;
+    text-align: center;
+    padding: 0 15px;
+}
+
+.add-to-profile:hover {
+    background-color: #1DB954;
+    color: #fff;
+}
+
+.button-size:active {
+    transform: translateY(1px);
+}
+
+.input-playlist-container {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    align-items: center;
+    font-size: 20px;
+    color: #fff;
+    font-family: Ubuntu;
+    font-weight: 700;
+}
+
+.input-content {
+    border: none;
+    border-radius: 15px;
+    height: 35px;
+    margin-left: 10px;
+    outline: none;
+    padding-left: 15px;
+}
+
+.error-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.error{
+    color: red;
+    font-size: 25px;
+    text-align: center;
+}
+
+/* Media Queries */
+
+@media screen and (max-width:768px) {
+    .table-container {
+        width: 99%;
+    }
+    .input-playlist-container {
+        flex-direction: column;
+    }
+    .title-container {
+        margin-bottom: 10px;
+    }
+    .playlist-title-container {
+        display: none !important;
+    }
+    .input-playlist-container {
+        padding-right: 10px;
+    }
+    .input-playlist-container p {
+        padding-bottom: 7px;
+        text-align: center;
+    }
+    .input-playlist-container p span {
+        display: none;
+    }
+    .input-playlist-container p::after {
+        content: 'Dê um nome para sua playlist';
+    }
+    tbody th {
+        max-width: unset;
+    }
+}
+
+@media (max-height:650px) {
+    .playlist-verification {
+        padding-top: 60px;
+    }
+}
+
+@media (max-width:1000px) {
+    .input-playlist-container {
+        flex-direction: column;
+    }
+    .playlist-title-container {
+        display: none !important;
+    }
+    .button-container{
+        justify-content: space-evenly !important;
+        width: 80%;
+    }
+    .button-size {
+        max-width: 200px;
+    }
+}
+
+@media (max-device-width: 767px) {
+    .table-container::-webkit-scrollbar {
+        width: 2px;
+        height: 0;
+    }
+    .playlist-verification {
+        padding-top: 20px;
+    }
+    .table-container {
+        overflow: scroll;
+    }
+    .button-container{
+        justify-content: space-evenly !important;
+        width: 100%;
+    }
+    .button-size {
+        max-width: 150px;
+    }
+}
+
+/* 
+@media (max-width: 767px) {
+    .fl-table {
+        display: block;
+        width: 100%;
+    }
+    .table-wrapper:before {
+        content: "Scroll horizontally >";
+        display: block;
+        text-align: right;
+        font-size: 11px;
+        color: white;
+        padding: 0 0 10px;
+    }
+    .fl-table thead, .fl-table tbody, .fl-table thead th {
+        display: block;
+    }
+    .fl-table thead th:last-child {
+        border-bottom: none;
+    }
+    .fl-table thead {
+        float: left;
+    }
+    .fl-table tbody {
+        width: auto;
+        position: relative;
+        overflow-x: auto;
+    }
+    .fl-table td, .fl-table th {
+        padding: 20px .625em .625em .625em;
+        height: 60px;
+        vertical-align: middle;
+        box-sizing: border-box;
+        overflow-x: hidden;
+        overflow-y: auto;
+        width: 120px;
+        font-size: 13px;
+        text-overflow: ellipsis;
+    }
+    .fl-table thead th {
+        text-align: left;
+        border-bottom: 1px solid #f7f7f9;
+    }
+    .fl-table tbody tr {
+        display: table-cell;
+    }
+    .fl-table tbody tr:nth-child(odd) {
+        background: none;
+    }
+    .fl-table tr:nth-child(even) {
+        background: transparent;
+    }
+    .fl-table tr td:nth-child(odd) {
+        background: #F8F8F8;
+        border-right: 1px solid #E6E4E4;
+    }
+    .fl-table tr td:nth-child(even) {
+        border-right: 1px solid #E6E4E4;
+    }
+    .fl-table tbody td {
+        display: block;
+        text-align: center;
+    }
+}  */
+
+/* .tr-content {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+} */

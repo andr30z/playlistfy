@@ -1,0 +1,15 @@
+.menuContainer {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.menuContainer section {
+    width: 100%;
+    background-color: #fff;
+}
+
+.menuContainer #whatweknow {
+    width: 100%;
+    background-color: initial;
+}

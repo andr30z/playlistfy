@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="2470px" height="599px" viewBox="0 0 700 599" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>Path 14</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="1.8398005%" y1="-23.2942056%" x2="134.086436%" y2="177.770023%" id="linearGradient-1">
+            <stop stop-color="#fff" offset="0%"></stop>
+            <stop stop-color="#fff" offset="100%"></stop>
+            <!-- <stop stop-color="#F3F6F7" offset="0%"></stop>
+            <stop stop-color="#D7D7FF" offset="100%"></stop> -->
+        </linearGradient>
+        <path d="M471.279947,326.971062 C581.328458,326.971062 668.240905,438.724135 762.633061,409.82283 C1002.90131,336.256695 1133.69886,398.161576 1230.14677,481.228065 C1384.90982,614.518899 1410.86058,468.653766 1538.31208,580.390231 C1665.76357,692.126697 1716.49449,656.077266 2025.89567,691.298027 C2098.84667,699.602423 2218.14843,710.953804 2318.37927,740.546973 C2369.4698,755.63146 2424.9148,794.115802 2484.71427,856 L22.9915317,856 C22.9548803,701.510959 60.1445723,582.508413 134.560608,498.992363 C246.184661,373.718289 312.187762,326.971062 471.279947,326.971062 Z" id="path-2"></path>
+        <filter x="-2.8%" y="-22.2%" width="108.5%" height="139.5%" filterUnits="objectBoundingBox" id="filter-3">
+            <feOffset dx="35" dy="-13" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="29" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.260558197 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="final-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="home" transform="translate(0.000000, -4703.000000)">
+            <g id="footer" transform="translate(-23.000000, 4446.000000)">
+                <g id="fondo-footer">
+                    <g id="Path-14">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                        <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

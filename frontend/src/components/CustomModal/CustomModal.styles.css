@@ -1,0 +1,101 @@
+.modal {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    display: flex;
+    align-items: center;
+    color: #4F79A4;
+    background-color: #fff;
+    height: 300px;
+    width: 300px;
+    border-radius: 15px;
+    border: 1px solid grey;
+}
+
+.modal-content .inside-div {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+}
+
+.ReactModal__Content {
+    background-color: #000;
+    opacity: 0.87;
+}
+.ReactModal__Overlay {
+    opacity: 0;
+    transition: opacity 2000ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open{
+    opacity: 1;
+}
+
+.ReactModal__Overlay--before-close{
+    opacity: 0;
+}
+
+.check{
+    font-size: 30px;
+}
+
+.emote{
+    font-size: 20px;
+}
+
+.inside-div *{
+    margin-top: 9px;
+}
+
+.modal-button{
+    min-width: 120px;
+    max-height: 30px;
+    border-radius: 10px;
+    border: none;
+    background-color: #4F79A4;
+    margin-bottom: 15px;
+    color: #fff;
+    opacity: 1;
+}
+
+.modal-button:hover{
+    color: #000;
+}
+
+.modal-content .inside-div a {
+    margin-top: unset;
+    margin-bottom: 5px;
+    width: 50px;
+    height: 20px;
+    background-color: #4F79A4;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.inside-div h3 {
+    font-size: 16px;
+}
+
+.inside-div .modalTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content a {
+    color: #4F79A4;
+}
+
+.emoji {
+    display: flex;
+    align-self: center;
+}
