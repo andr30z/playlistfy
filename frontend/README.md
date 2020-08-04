@@ -1,4 +1,4 @@
-###Principais Pacotes/frameworks 
+<h1>Principais frameworks/pacotes</h1>
 <ul style="display:grid; grid-template-columns: auto auto; grid-gap: 10px;">
  <li>Axios</li>
  <li>Redux (react-redux)</li>
