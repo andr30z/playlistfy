@@ -16,6 +16,7 @@ import auth from '../../services/api';
 // import { setToken } from '../../redux/TokenActions';
 import { isSomething } from '../../redux/SideEffectsActions';
 import { loadUserData } from '../../redux/UserActions';
+import { is401, useAsyncError } from '../../utils/utilFunctions';
 // import useRefreshToken from '../../utils/useRefreshToken';
 
 const UserHoc = Hoc(UserInfo);
@@ -23,45 +24,17 @@ const MenuHoc = Hoc(MenuLanding);
 
 const Menu = () => {
 
+    const throwError = useAsyncError();
 
     const { user: { currentUser, userData }, to, sideEffects } = useSelector(state => state);
-    const state = useSelector(state => state);
 
     const [personalizationIsLoading, setPersonalizationIsLoading] = useState(false);
     // const [userIsLoading, setUserIsLoading] = useState(true);
 
     const dispatch = useDispatch();
 
-
-    // async function check() {
-    //     if (to.createdAt !== -1 && to.expires_in) {
-    //         const updatedTo = await checkUserTo(to.createdAt, to.refresh_token)
-    //             .then(res => {
-    //                 if (!res) {
-    //                     console.log("inside res check ", res)
-    //                     return res;
-    //                 }
-    //                 console.log("res data check ", res.data);
-    //                 return res.data
-    //             })
-    //             .catch(error => ({ error, errorMessage: 'Não foi possivel recuperar o token :(' }));
-    //         console.log("aaaa", updatedTo)
-    //         if (updatedTo) {
-    //             console.log(to, " before running the check")
-    //             dispatch(setToken('SET_TOKEN', { ...updatedTo, createdAt: new Date().getTime() }));
-    //         }
-    //     }
-    // }
-
     useEffect(() => {
         dispatch(isSomething(true, 'isMenu'))
-        console.log('disparei')
-        // check();
-        // useRefreshToken();
-        // const errorMes={errorMessage:'acess token'}
-        console.log(state, " state ziaca akkasldklasjdkl")
-//   throw new Error (errorMes)
-        console.log(sideEffects.isLoggin, 'isloggin')
         if (!sideEffects.isLoggin) {
             setPersonalizationIsLoading(true);
             auth.get("user/data-personalization", {
@@ -69,9 +42,13 @@ const Menu = () => {
             }).then(res => {
                 dispatch(loadUserData({ artists: res.data.art, tracks: res.data.tracks }));
                 setPersonalizationIsLoading(false);
-                // dispatch(isSomething(false,'isLoggin'))
-            }).catch(error=> console.log(error, 'error catch'));
+            }).catch(error => {
+                if (is401(error)) {
+                    throwError("Sua sessão expirou, por favor efetue o login novamente");
+                }
+            });
         }
+        return ()=>dispatch(isSomething(false, 'isMenu'));
         // eslint-disable-next-line
     }, []);
 
@@ -97,7 +74,7 @@ const Menu = () => {
                     }}
                     data={userData ? userData.artists : []}
                     spinnerSize={'100vh'}
-                    isLoading={sideEffects.isLoggin?sideEffects.isLoggin:personalizationIsLoading}
+                    isLoading={sideEffects.isLoggin ? sideEffects.isLoggin : personalizationIsLoading}
                     imgUrl="Playlist-bro"
                     customCallText={"O que sabemos sobre seu gosto musical"}
                     customTitle="Seus Artistas preferidos:"
@@ -110,7 +87,7 @@ const Menu = () => {
                         borderTop: '#fff'
                     }}
                     spinnerSize={'100vh'}
-                    isLoading={sideEffects.isLoggin?sideEffects.isLoggin:personalizationIsLoading}
+                    isLoading={sideEffects.isLoggin ? sideEffects.isLoggin : personalizationIsLoading}
                     data={userData ? userData.tracks : []}
                     customStyle={'inverse'}
                     imgUrl={"fav-bro"}

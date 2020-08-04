@@ -13,11 +13,13 @@ import auth from '../../services/api';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { changeColor } from '../../redux/SideEffectsActions';
+import {useAsyncError, is401} from '../../utils/utilFunctions';
+
 
 const TableHoc = Hoc(PlaylistTable);
 
 const PlaylistVerification = ({ location }) => {
-
+    const throwError = useAsyncError();
 
     const [dataModal, setDataModal] = useState({ toggleModal: false, error: null });
     const [inputValue, setInputValue] = useState("");
@@ -28,20 +30,13 @@ const PlaylistVerification = ({ location }) => {
     const { to, user } = useSelector(state => state);
 
     const history = useHistory();
-    // const { fromPlaylist } = location.state;
-
 
     useEffect(() => {
-        // if (!location) {
-        //     history.goBack();
-        //     return;
-        // }
 
         dispatch(changeColor("#fff", "SIDE_EFFECT_FOOTER"));
 
         const params = [];
         const choosed = location ? location.state.pickedValue : {genres:false};
-        console.log(choosed, " CHOOSED")
 
 
         if (choosed.genres) {
@@ -59,7 +54,6 @@ const PlaylistVerification = ({ location }) => {
         const id = choosed.id;
         params.push({ id });
         params.push({ to: to.access_token });
-        console.log('params   ',params);
 
         auth.get('/generate-playlist', {
             params: {
@@ -69,6 +63,9 @@ const PlaylistVerification = ({ location }) => {
             setPlaylist(res.data);
             setIsLoadingPlaylist(false);
         }).catch(error => {
+            if (is401(error)) {
+              return throwError("Sua sessão expirou, por favor efetue o login novamente");
+             }
             setPlaylist({ errorMessage: error.response.data });
         });
         // eslint-disable-next-line
@@ -77,7 +74,6 @@ const PlaylistVerification = ({ location }) => {
     const onSubmit = useCallback(() => {
 
         const name = inputValue !== "" && inputValue.trim().length > 0 ? inputValue : "Playlistfy :D";
-        console.log(inputValue)
         const playlistSongs = playlist.tracks.map(song => song.uri);
         const data = {
             userId: user.currentUser.id,
@@ -92,11 +88,9 @@ const PlaylistVerification = ({ location }) => {
             }
         })
             .then(res => {
-                console.log(dataModal)
                 setDataModal({ toggleModal: !dataModal.toggleModal, error: null });
             })
             .catch(error => {
-                console.log("errrrrrrrrooooo")
                 setDataModal({ toggleModal: false, error: error.response.data })
             }
             );

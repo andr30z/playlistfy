@@ -9,25 +9,10 @@ import { Link } from 'react-router-dom';
 import CustomButton from '../CustomButton/CustomButton.component';
 
 
-// const customStyles = {
-//     content: {
-//         top: '50%',
-//         left: '50%',
-//         right: 'auto',
-//         bottom: 'auto',
-//         marginRight: '-50%',
-//         transform: 'translate(-50%, -50%)',
-//         width: '200px',
-//         height: '200px',
-//         borderRadius: '15px',
-//     }
-// };
-
-Modal.setAppElement('#root');
 
 const CustomModal = ({ closeModal, isOpen, isError }) => {
-    // console.log("IS OPEN: ", isOpen)
-    // console.log("ERRO: ", isError)
+    //  ("IS OPEN: ", isOpen)
+    //  ("ERRO: ", isError)
     return (
         <Modal
             isOpen={isOpen}

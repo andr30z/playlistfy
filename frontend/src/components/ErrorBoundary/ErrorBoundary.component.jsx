@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
 import './ErrorBoundary.styles.css'
-import { Link } from 'react-router-dom'
 
 export default class ErrorBoundary extends Component {
   constructor() {
@@ -9,7 +8,7 @@ export default class ErrorBoundary extends Component {
 
     this.state = {
       hasErrored: false,
-      errorMessage: "errrinho"
+      error: "ERROR"
     }
   }
 
@@ -21,8 +20,8 @@ export default class ErrorBoundary extends Component {
   // }
 
   componentDidCatch(error, info) {
-    console.log(error, "info ", info)
-    this.setState({...this.state, errorMessage:info})
+    console.log(error)
+    this.setState({ error: error })
   }
 
   static getDerivedStateFromError(error) {
@@ -36,9 +35,9 @@ export default class ErrorBoundary extends Component {
           <div className="error-svg-container">
             <img alt="TELA DE ERRO" src={require("../../assets/error.svg")} />
             <h2 className="error-text">Esta pagina está quebrada ;-;</h2>
-            <h2 className="error-text">{this.state.errorMessage}</h2>
           </div>
-          <Link to="/">Tente novamente</Link>
+          <h2 className="error-text">{this.state.error}</h2>
+          <a href="/">Tente Novamente</a>
         </div>
       )
     }

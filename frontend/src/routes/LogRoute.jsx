@@ -10,6 +10,7 @@ import { setCurrentUser, loadUserData } from '../redux/UserActions';
 import { setToken } from '../redux/TokenActions';
 import { isSomething } from '../redux/SideEffectsActions';
 import Axios from 'axios';
+import { useAsyncError, is401 } from '../utils/utilFunctions';
 
 
 
@@ -17,25 +18,26 @@ const LogRoute = ({ pathname, location, ...rest }) => {
     const { user: { currentUser } } = useSelector(state => state);
     const dispatch = useDispatch();
     const history=useHistory();
+    const throwError = useAsyncError();
 
     useEffect(() => {
+        // throwError({currentUser})
         if (!currentUser) {
             const UrlQueryStrings = location.search;
-            console.log(UrlQueryStrings, "URLQUERY")
             const queryValues = queryString.parse(UrlQueryStrings, "   urlquery   ");
             if (queryValues.error) {
                 alert('Você não autorizou nossa aplicação :(');
                 history.push('/');
                 return;
             }
-            console.log(currentUser, "   useerrrrr")
             if (queryValues.code && !currentUser) {
 
                 dispatch(isSomething(true, 'isLoggin'))
                 loadUser(queryValues.code)
                     .catch(error => {
-                        console.log(error, "errinho hihih")
-                        alert("Ops, aconteceu algum problema por favor verifique sua conexão de internet :(")
+                        if (is401(error)) {
+                            throwError("Sua sessão expirou, por favor efetue o login novamente");
+                         }
                     })
             }
         }
@@ -50,7 +52,6 @@ const LogRoute = ({ pathname, location, ...rest }) => {
             }
         })
             .then(res => {
-                console.log(res.data, "  getTokenAsync")
                 dispatch(setToken('SET_TOKEN', { ...res.data, createdAt: new Date().getTime() }));
 
                 return Axios.all([
@@ -66,7 +67,6 @@ const LogRoute = ({ pathname, location, ...rest }) => {
                     })]
                 );
             }).then(Axios.spread((currentUserRes, userDataRes) => {
-                console.log(currentUserRes, userDataRes, "asuidhauishd")
                 dispatch(setCurrentUser(currentUserRes.data));
                 dispatch(loadUserData({ artists: userDataRes.data.art, tracks: userDataRes.data.tracks }))
                 dispatch(isSomething(false, 'isLoggin'))

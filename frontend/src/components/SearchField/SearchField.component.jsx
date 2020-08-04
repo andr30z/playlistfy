@@ -9,7 +9,6 @@ import { useLocation } from 'react-router-dom';
 const SearchField = ({ search, setSearch }) => {
 
     const location = useLocation();
-    console.log(location, 'locationaaaajajaj')
 
     const onChange = useCallback((value) => {
         setSearch({ ...search, search: value });

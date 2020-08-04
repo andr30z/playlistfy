@@ -20,28 +20,6 @@ const Home = (props) => {
 
   useEffect(() => {
     dispatch(isSomething(true, 'isHome'));
-    // if (!user) {
-    //   const UrlQueryStrings = props.location.search;
-    //   const queryValues = queryString.parse(UrlQueryStrings);
-    //   if (queryValues.error) {
-    //     alert('Você não autorizou nossa aplicação :(')
-    //     return;
-    //   }
-    //   console.log(user)
-    //   if (queryValues.code && !user) {
-    //     dispatch(isSomething(true,'isLoggin'));
-    //     getTokenAsync(queryValues.code)
-    //       .then(data => {
-    //         console.log(data, " data inside then")
-    //         dispatch(setCurrentUser(data));
-    //         history.push('/menu')
-    //       })
-    //       .catch(error => {
-    //         // dispatch(onError(error));
-    //         alert("Ops, aconteceu algum problema por favor verifique sua conexão de internet :(")
-    //       })
-    //   }
-    // }
     return () => {
       dispatch(isSomething(false, 'isHome'));
     }
@@ -49,13 +27,10 @@ const Home = (props) => {
   }, []);
 
   const onLinkClick = () => {
-    console.log("tokennnnn", user)
     if (user) {
       history.push('/menu');
       return;
     }
-
-    // dispatch(isSomething(true,'isLoggin'));
 
     window.open('http://localhost:3333/oauth', '_self');
   }

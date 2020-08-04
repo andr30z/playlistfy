@@ -15,13 +15,10 @@ routes.get('/oauth', (req, res) => {
 routes.get('/auth', (req, res) => {
     const { code } = req.query;
     const { refresh } = req.headers;
-    console.log(code)
-    console.log("refreshzica", refresh)
 
     const data = new URLSearchParams();
     if (refresh) {
         const refresh_token = decKey(null, refresh).toString(crypto.enc.Utf8)
-        console.log('refresh  ', refresh_token)
         data.append("refresh_token", refresh_token);
     } else {
         data.append("redirect_uri", 'http://localhost:3000/log');
@@ -30,14 +27,12 @@ routes.get('/auth', (req, res) => {
 
     data.append("grant_type", refresh ? "refresh_token" : "authorization_code");
 
-    console.log(data, "data hahaha")
     auth.post("/token", data, {
         headers: {
             'Authorization': 'Basic ' + (new Buffer.from(process.env.CLIENT_ID + ':' + process.env.CLIENT_SECRET).toString('base64')),
             'Content-Type': 'application/x-www-form-urlencoded',
         },
     }).then(resp => {
-        console.log('resp data', resp.data)
         const encryptTo = crypto.AES.encrypt(resp.data.access_token, process.env.CRP).toString();
         const encryptRe = crypto.AES.encrypt(refresh ? data.get('refresh_token')
             : resp.data.refresh_token, process.env.CRR).toString();
@@ -46,16 +41,12 @@ routes.get('/auth', (req, res) => {
             access_token: encryptTo,
             refresh_token: encryptRe
         }
-        console.log(returnData)
-        // console.log("before ", resp.data);
-        // console.log("after ", returnData);
         res.send(returnData);
     }).catch(error => {
         if (error.response.status === 401) {
             // console.warn("error aslkdjaskldjilajsdkljaksldjaskdjklasjdklajsdkl ", error)
             return res.status(401).send(error)
         }
-        // console.log("ERROR FORA DO IF AUTH", error)
         res.status(400).send({ error, errorMessage: 'Não foi possivel obter o token' })
     });
 });
@@ -63,7 +54,6 @@ routes.get('/auth', (req, res) => {
 
 routes.get('/user', (req, res) => {
     const { Authorization } = req.query;
-    console.log(Authorization)
     const dec = decKey(Authorization, null);
 
     Axios.get("https://api.spotify.com/v1/me", {
@@ -88,6 +78,8 @@ routes.get('/user/data-personalization', (req, res) => {
     const headers = {
         Authorization: 'Bearer ' + dec
     }
+
+    // return res.status(401).send('erro')
     // https://api.spotify.com/v1/me/top/{type}
     Axios.all([
         Axios.get('https://api.spotify.com/v1/me/top/artists', {
@@ -101,7 +93,6 @@ routes.get('/user/data-personalization', (req, res) => {
             res.send({ art: artists.data.items, tracks: tracks.data.items })
         }
     })).catch(error => {
-        console.log(error)
         if (error.response.status === 401) {
             return res.status(401).send(error)
         }
@@ -112,8 +103,6 @@ routes.get('/user/data-personalization', (req, res) => {
 
 routes.get('/search', (req, res) => {
     const { to, q } = req.headers;//olhar aqui vem do headers trocar no api.js
-    // console.log(req.headers)
-    console.log(to, "asueihauisehuiashduihasd merda\n", q)
     const decToAccess = decKey(to, null);
     Axios.get('https://api.spotify.com/v1/search', {
         headers: {
@@ -124,10 +113,8 @@ routes.get('/search', (req, res) => {
             type: type = "artist,track"
         }
     }).then(resp => {
-        console.log("asdasdasdhihihihihihihi ", resp.data)
         res.send({ ...resp.data })
     }).catch(error => {
-        console.log(error)
         if (error.response.status === 401) {
             return res.status(401).send(error)
         }
@@ -154,16 +141,13 @@ routes.get('/generate-playlist', async (req, res) => {
                     errorMessage: "ERROR"
                 }
             ));
-        console.log(genres_id, "   ASDASDASD");
         if (genres_id.errorMessage) {
             return genres_id.status === 401 ? res.status(401).send(genres_id.error) : res.status(404).send('Não foi possível gerar uma playlist com base neste artista :(');
         }
 
         const seedGenres = filterGenres(genres_id.genres);
-        console.log(seedGenres);
 
         const recommendedPlaylist = await recommendationPlaylist(genres_id.id, seedGenres, id, decTo)
-        console.log(recommendedPlaylist)
         if (recommendedPlaylist.status === 401) {
             return res.status(401).send(recommendedPlaylist.error)
         }
@@ -188,7 +172,6 @@ routes.get('/generate-playlist', async (req, res) => {
         }));
 
 
-    console.log("kendrickera   ", artistTopTracks);
 
     if (artistTopTracks.status === 401) {
         return res.status(401).send(artistTopTracks.error);
@@ -199,10 +182,8 @@ routes.get('/generate-playlist', async (req, res) => {
     }
     // um pouquinho de randomizidade não faz mal a ninguem :D
     const randomIndex = Math.floor(Math.random() * artistTopTracks.tracks.length - 1) + 1;
-    console.log('random: ', randomIndex);
     const trackId = artistTopTracks.tracks[randomIndex].id;
 
-    console.log(seedGenres, href, artistUrl, trackId)
     const recommendedPlaylist = await recommendationPlaylist(id, seedGenres, trackId, decTo);
     if (recommendedPlaylist.error) {
         return recommendedPlaylist.status === 401 ?
@@ -210,12 +191,10 @@ routes.get('/generate-playlist', async (req, res) => {
             :
             res.status(404).send(recommendedPlaylist.error);
     }
-    console.log(recommendedPlaylist);
     res.send(recommendedPlaylist);
 });
 
 routes.post('/create-playlist', async (req, res) => {
-    console.log(req.body)
     const { playlist, name, userId, source } = req.body;
     const { to } = req.headers;
     const decTo = decKey(to, null).toString(crypto.enc.Utf8);
@@ -233,7 +212,6 @@ routes.post('/create-playlist', async (req, res) => {
             error,
             status: error.response.status
         }));
-    console.log('postRes ', postRes)
     if (postRes.status === 201 || postRes.status === 200) {
         const url = `https://api.spotify.com/v1/playlists/${postRes.playlist_id}/tracks`;
         const postItems = await postPlaylist(decTo, playlist, url)
@@ -242,7 +220,6 @@ routes.post('/create-playlist', async (req, res) => {
                 error,
                 status: error.response.status
             }));
-        console.log('postItems ', postItems)
         return postItems.status === 401 ? res.status(401).send(postItems) : res.send(postItems);
     }
 

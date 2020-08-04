@@ -6,7 +6,6 @@ export const isAuthenticated = () => {
             return false;
         }
         const { currentUser } = JSON.parse(user);
-        console.log(currentUser, "   AUTHJS");
         return currentUser ? true : false;
     } catch (error) {
         return false;
@@ -20,6 +19,5 @@ export const hasToken = ()=>{
         return false;
     }
     const { access_token } = JSON.parse(to);
-    console.log(access_token, "   AUTHJS token");
     return access_token ? true : false;
 }

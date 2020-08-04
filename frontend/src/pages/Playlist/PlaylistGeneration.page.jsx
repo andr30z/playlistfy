@@ -11,16 +11,15 @@ import CustomButton from '../../components/CustomButton/CustomButton.component';
 
 import "./PlaylistGeneration.styles.css";
 
-// import { setToken } from '../../redux/TokenActions';
-// import checkUserTo from '../../utils/checkUserTo';
 import auth from '../../services/api';
 import { debounce } from 'lodash';
+import {useAsyncError, is401} from '../../utils/utilFunctions';
 
 const PlaylistGeneration = (props) => {
 
     const dispatch = useDispatch();
     const to = useSelector(state => state.to);
-
+    const throwError = useAsyncError();
 
     const [search, setSearch] = useState({ search: '', pickedValue: undefined });
     const [searchData, setSearchData] = useState({});
@@ -30,24 +29,12 @@ const PlaylistGeneration = (props) => {
     useEffect(() => {
         dispatch(changeColor("#fff", "SIDE_EFFECT_FOOTER"));
 
-        // if (to.createdAt !== -1 && to.expires_in) {
-        //     const updatedTo = checkUserTo(to.createdAt, to.refresh_token);
-        //     if (updatedTo) {
-        //         updatedTo.then(res => {
-        //             dispatch(setToken('SET_TOKEN', { ...res.data, createdAt: new Date() }))
-        //         })
-        //     }
-        // }
-
-        // return () => dispatch(changeColor('transparent', "SIDE_EFFECT_FOOTER"));
-
         // eslint-disable-next-line
     }, []);
 
 
     useEffect(() => {
         if (search !== "" && !search.pickedValue && search.search.trim().length > 0) {
-            console.log('naskudhauishduio entrou primeiro if')
             setHideBar(false);
             setSearchIsLoading(true);
             handler(search.search);
@@ -55,14 +42,11 @@ const PlaylistGeneration = (props) => {
         }
 
         if (search.pickedValue && search.pickedValue.name !== search.search) {
-            console.log('huhihihihih')
             setSearch({ ...search, pickedValue: undefined });
             setHideBar(false);
             return;
         }
-        console.log('hide bar ', hideBar)
         if (!hideBar || !search.pickedValue) {
-            console.log('naskudhauishduio ultimo if')
             setHideBar(true)
         }
 
@@ -73,7 +57,6 @@ const PlaylistGeneration = (props) => {
     const history = useHistory();
 
     const onSubmit = useCallback(() => {
-        console.log(search, ' search')
         if (search.pickedValue) {
             history.push('/playlist/verification', { ...search, fromPlaylist: true });
             return;
@@ -88,20 +71,18 @@ const PlaylistGeneration = (props) => {
                 to: to.access_token
             }
         }).then(res => {
-            console.log(res.data.artists.items, "artists asdkjasuijdias")
-            console.log(res.data.tracks.items, "TRACKSS asdkjasuijdias")
             setSearchData(res.data);
             setSearchIsLoading(false)
         }).catch(error => {
-            console.log(error)
+            if (is401(error)) {
+                throwError("Sua sessão expirou, por favor efetue o login novamente");
+             }
         });
         // eslint-disable-next-line
     }, 1000), []);
 
     const onClickIcon = (item) => {
         // A ORDEM IMPORTA
-        console.log(hideBar, ' hideBar no onclcick')
-        console.log(search.pickedValue, " pickedValue Onclick");
         setSearch({ search: item.name, pickedValue: item });
     }
 
@@ -120,7 +101,6 @@ const PlaylistGeneration = (props) => {
                     <SearchField
                         search={search.search}
                         setSearch={setSearch}
-                    // hideBar={hideBar}
                     />
                     <SearchResults
                         isLoading={searchIsLoading}

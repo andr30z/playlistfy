@@ -4,12 +4,10 @@ import { isAuthenticated, hasToken } from './auth';
 
 const VerificationRoute = ({ component: Component, pathname, ...rest }) => {
 
-    // console.log("verification propento location ", location);
     return (
         <Route
             {...rest}
             render={props => {
-                console.log(" private ", props.location)
                 return (
                     isAuthenticated() && hasToken() && props.location.state ?
                         <Component {...props} />
