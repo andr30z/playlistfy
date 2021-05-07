@@ -18,7 +18,7 @@ const Footer = () => {
 
         }}>
             <div className="midrow">
-                <p>Criado por André Luiz (@Andr3zinh00)</p>
+                <p>Criado por André Luiz (@andr30z)</p>
                 <div className="iconContainer">
                     <div>
                         <a
@@ -26,7 +26,7 @@ const Footer = () => {
                             style={{ ...colorStyle, marginRight: "20px" }}
                             target="_blank"
                             rel="noopener noreferrer"
-                            href="https://github.com/Andr3zinh00">
+                            href="https://github.com/andr30z">
                             <Icon className="icon-git" icon={faGithub} />
                         </a>
                         <a

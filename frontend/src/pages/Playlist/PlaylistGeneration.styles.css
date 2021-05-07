@@ -53,7 +53,8 @@
 }
 
 .button-playlist:hover {
-    background-color: black;
+    /* SAVIO ZICA BOTOU ESTA COR AQUI */
+    background-color: #000066;
     color: #fff;
 }
 

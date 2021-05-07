@@ -36,7 +36,8 @@ tbody th {
     text-overflow: ellipsis; */
 }
 
-.fl-table td, .fl-table th {
+.fl-table td,
+.fl-table th {
     text-align: center;
     padding: 8px;
 }
@@ -47,13 +48,13 @@ tbody th {
 }
 
 .fl-table thead th {
-    color: #4F79A4;
+    color: #4f79a4;
     background: #fff;
 }
 
 .fl-table thead th:nth-child(odd) {
     color: #ffffff;
-    background: #4F79A4;
+    background: #4f79a4;
 }
 
 .fl-table tr:nth-child(even) {
@@ -90,6 +91,7 @@ tbody th {
     flex-direction: row;
     justify-content: space-evenly;
     margin-top: 20px;
+    margin-bottom: 15px;
 }
 
 .button-size {
@@ -110,7 +112,7 @@ tbody th {
 }
 
 .another-one {
-    color: #4F79A4;
+    color: #4f79a4;
     border: 1px solid black;
 }
 
@@ -126,14 +128,14 @@ tbody th {
 
 .add-to-profile {
     background-color: #191414;
-    color: #1DB954;
+    color: #1db954;
     border: 1px #fff solid;
     text-align: center;
     padding: 0 15px;
 }
 
 .add-to-profile:hover {
-    background-color: #1DB954;
+    background-color: #1db954;
     color: #fff;
 }
 
@@ -161,14 +163,14 @@ tbody th {
     padding-left: 15px;
 }
 
-.error-container{
+.error-container {
     display: flex;
     justify-content: center;
     align-items: center;
     flex: 1;
 }
 
-.error{
+.error {
     color: red;
     font-size: 25px;
     text-align: center;
@@ -176,7 +178,7 @@ tbody th {
 
 /* Media Queries */
 
-@media screen and (max-width:768px) {
+@media screen and (max-width: 768px) {
     .table-container {
         width: 99%;
     }
@@ -200,27 +202,27 @@ tbody th {
         display: none;
     }
     .input-playlist-container p::after {
-        content: 'Dê um nome para sua playlist';
+        content: "Dê um nome para sua playlist";
     }
     tbody th {
         max-width: unset;
     }
 }
 
-@media (max-height:650px) {
+@media (max-height: 650px) {
     .playlist-verification {
         padding-top: 60px;
     }
 }
 
-@media (max-width:1000px) {
+@media (max-width: 1000px) {
     .input-playlist-container {
         flex-direction: column;
     }
     .playlist-title-container {
         display: none !important;
     }
-    .button-container{
+    .button-container {
         justify-content: space-evenly !important;
         width: 80%;
     }
@@ -240,7 +242,7 @@ tbody th {
     .table-container {
         overflow: scroll;
     }
-    .button-container{
+    .button-container {
         justify-content: space-evenly !important;
         width: 100%;
     }
