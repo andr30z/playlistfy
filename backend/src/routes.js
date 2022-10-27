@@ -10,7 +10,7 @@ const FRONTEND_URL =
     ? "https://playlistfy-app.netlify.app"
     : "http://localhost:3000";
 
-routes.get("/oauth", (req, res) => {
+routes.get("/oauth", (_req, res) => {
   const CLIENT_ID = process.env.CLIENT_ID;
   res.redirect(
     `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&response_type=code&redirect_uri=/log&scope=user-read-private%20user-read-email%20user-top-read%20playlist-modify-public`
