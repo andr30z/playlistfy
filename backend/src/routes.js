@@ -13,7 +13,7 @@ const FRONTEND_URL =
 routes.get("/oauth", (req, res) => {
   const CLIENT_ID = process.env.CLIENT_ID;
   res.redirect(
-    `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&response_type=code&redirect_uri=${FRONTEND_URL}/log&scope=user-read-private%20user-read-email%20user-top-read%20playlist-modify-public`
+    `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&response_type=code&redirect_uri=/log&scope=user-read-private%20user-read-email%20user-top-read%20playlist-modify-public`
   );
 });
 
