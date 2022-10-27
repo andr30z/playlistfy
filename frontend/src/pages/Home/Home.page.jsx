@@ -30,7 +30,7 @@ const Home = (props) => {
       return;
     }
 
-    window.open(`${API_URL}oauth`, "_self");
+    document.location.href = `${API_URL}oauth`;
   };
 
   return (
