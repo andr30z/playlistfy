@@ -8,7 +8,7 @@ const routes = express.Router();
 const FRONTEND_URL =
   process.env.NODE_ENV === "production"
     ? "https://playlistfy-app.netlify.app"
-    : "http://localhost:3000";
+    : "http://localhost:3001";
 
 routes.get("/oauth", (_req, res) => {
   const CLIENT_ID = process.env.CLIENT_ID;

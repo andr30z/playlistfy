@@ -41,7 +41,7 @@ $ npm start
 <h1>Aviso:</h1>
 Para rodar localmente, são necessarias as chaves de desenvolvedor do Spotify. Caso já tenha as chaves basta criar um arquivo  
 .env no diretorio
-/backend/src 
+/backend 
 e neste arquivo criar 4 variáveis de ambiente:
 
 ```sh
@@ -50,4 +50,3 @@ CLIENT_SECRET=SUA_CHAVE_CLIENT_SECRET
 CRP=QUALQUER FRASE
 CRR=QUALQUER FRASE
 ```
-
