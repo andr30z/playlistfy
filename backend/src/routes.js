@@ -253,7 +253,7 @@ routes.post("/create-playlist", async (req, res) => {
     .then((resp) => ({
       status: resp.status,
       playlist_id: resp.data.id,
-      playlistURL: resp.data.href,
+      playlistURL: resp.data.external_urls.spotify,
     }))
     .catch((error) => ({
       error,
