@@ -1,8 +1,8 @@
 const express = require("express");
 const auth = require("./services/api");
 const { default: Axios } = require("axios");
-
 const crypto = require("crypto-js");
+const Audit = require("./db/model/Audit");
 
 const routes = express.Router();
 const FRONTEND_URL =
@@ -239,7 +239,7 @@ routes.post("/create-playlist", async (req, res) => {
   const { to } = req.headers;
   const decTo = decKey(to, null).toString(crypto.enc.Utf8);
   const description =
-    "Playlist feita utilizando o app Playlistfy (www.playlistfy.herokuapp.com). Artista/musica utilizada como base: " +
+    "Playlist feita utilizando o app Playlistfy (https://playlistfy-app.netlify.app). Artista/musica utilizada como base: " +
     source;
   const data = {
     name: name,
@@ -253,12 +253,14 @@ routes.post("/create-playlist", async (req, res) => {
     .then((resp) => ({
       status: resp.status,
       playlist_id: resp.data.id,
+      playlistURL: resp.data.href,
     }))
     .catch((error) => ({
       error,
       status: error.response.status,
     }));
   if (postRes.status === 201 || postRes.status === 200) {
+    await makeAudit(userId, postRes.playlistURL);
     const url = `https://api.spotify.com/v1/playlists/${postRes.playlist_id}/tracks`;
     const postItems = await postPlaylist(decTo, playlist, url)
       .then((res) => ({ snap_id: res.data }))
@@ -266,6 +268,7 @@ routes.post("/create-playlist", async (req, res) => {
         error,
         status: error.response.status,
       }));
+
     return postItems.status === 401
       ? res.status(401).send(postItems)
       : res.send(postItems);
@@ -319,6 +322,15 @@ function decKey(key, ref) {
   return ref
     ? crypto.AES.decrypt(ref, process.env.CRR)
     : crypto.AES.decrypt(key, process.env.CRP);
+}
+
+async function makeAudit(spotifyUserId, playlistUrl) {
+  const audit = new Audit({
+    spotifyUserId,
+    playlistUrl: playlistUrl,
+    createdAt: new Date(),
+  });
+  await audit.save();
 }
 
 module.exports = routes;
