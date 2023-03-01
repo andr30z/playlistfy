@@ -260,7 +260,7 @@ routes.post("/create-playlist", async (req, res) => {
       status: error.response.status,
     }));
   if (postRes.status === 201 || postRes.status === 200) {
-    await makeAudit(userId, postRes.playlistURL);
+    await makeAudit(userId, postRes.playlistURL, source);
     const url = `https://api.spotify.com/v1/playlists/${postRes.playlist_id}/tracks`;
     const postItems = await postPlaylist(decTo, playlist, url)
       .then((res) => ({ snap_id: res.data }))
@@ -324,11 +324,12 @@ function decKey(key, ref) {
     : crypto.AES.decrypt(key, process.env.CRP);
 }
 
-async function makeAudit(spotifyUserId, playlistUrl) {
+async function makeAudit(spotifyUserId, playlistUrl, source) {
   const audit = new Audit({
     spotifyUserId,
     playlistUrl: playlistUrl,
     createdAt: new Date(),
+    baseArtistOrSong: source,
   });
   await audit.save();
 }
