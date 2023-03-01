@@ -10,6 +10,10 @@ const AuditSchema = new mongoose.Schema(
       type: String,
       required: "playlist is Required!",
     },
+    baseArtistOrSong: {
+      type: String,
+      required: "baseArtistOrSong is Required!",
+    },
   },
   {
     timestamps: true,
