@@ -1,6 +1,6 @@
-require("./db/config.js");
+require("./src/db/config.js");
 const express = require("express");
-const routes = require("./routes.js");
+const routes = require("./src/routes.js");
 const cors = require('cors');
 const { json } = require("express");
 
