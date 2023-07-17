@@ -12,3 +12,6 @@ app.use(cors())
 app.use(routes);
 const PORT = process.env.PORT || 3333;
 app.listen(PORT);
+
+
+module.exports = app;
